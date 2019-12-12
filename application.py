@@ -21,7 +21,7 @@ app.debug = True
 
 @app.route("/")
 def hello():
-    return "Logger is up & running!"
+    return "Data node is up & running!"
 
 
 @app.route("/ideas", methods=['GET', 'OPTIONS', 'DELETE'])
@@ -31,7 +31,7 @@ def call_get_logs():
     if request.method == "GET":
         return _build_cors_actual_response(jsonify(get_logs()))
     if request.method == 'DELETE':
-        clear_logs()
+        # clear_logs()
         return _build_cors_actual_response(jsonify({'success': 'true'}))
 
 
