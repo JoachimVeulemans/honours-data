@@ -8,12 +8,12 @@ import logging
 
 origin = os.getenv('ORIGIN')
 if origin is None:
-    origin = 'https://honourlogs.jocawebs.be'
+    origin = 'https://honourdata.jocawebs.be'
 
 app = Flask(__name__)
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = False
 CORS(app, supports_credentials=True, resources={
-    r"/*": {"origins": ["https://honourlogs.jocawebs.be:443/*"]}})
+    r"/*": {"origins": ["https://honourdata.jocawebs.be:443/*"]}})
 
 logging.getLogger('flask_cors').level = logging.DEBUG
 path_to_files = "/var/www/public/ideas/"
