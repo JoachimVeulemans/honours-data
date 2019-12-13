@@ -1,6 +1,8 @@
 import json
 import os
 from flask import jsonify
+from os import listdir
+from os.path import isfile, join
 
 class FileReader:
     def __init__(self, file: str):
@@ -19,6 +21,17 @@ class FileReader:
         if lines == "":
             lines = "[]"
         return json.loads(lines)
+
+class FilesReader:
+    def __init__(self, path: str):
+        self.path = path
+
+    def get_list(self):
+        onlyfiles = [f for f in listdir(self.path) if isfile(join(self.path, f))]
+        correctFiles = []
+        for file in onlyfiles:
+            correctFiles.append(file.split(".txt")[0])
+        return correctFiles
 
 
 class FileWriter:
