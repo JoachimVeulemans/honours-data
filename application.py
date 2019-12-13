@@ -15,7 +15,7 @@ CORS(app, supports_credentials=True, resources={
     r"/*": {"origins": ["https://honourlogs.jocawebs.be:443/*"]}})
 
 logging.getLogger('flask_cors').level = logging.DEBUG
-path_to_file = "/var/www/public/data.txt"
+path_to_file = "/var/www/public/"
 app.debug = True
 
 
@@ -24,38 +24,32 @@ def hello():
     return "Data node is up & running!"
 
 
-@app.route("/ideas", methods=['GET', 'OPTIONS', 'DELETE'])
-def call_get_logs():
+@app.route("/<id>", methods=['GET', 'DELETE', 'POST', 'OPTIONS'])
+def call_post_log(id):
     if request.method == "OPTIONS":
         return _build_cors_prelight_response()
     if request.method == "GET":
-        return _build_cors_actual_response(jsonify(get_logs()))
+        return _build_cors_actual_response(jsonify(get_idea(id)))
     if request.method == 'DELETE':
-        # clear_logs()
+        clear_idea(id)
         return _build_cors_actual_response(jsonify({'success': 'true'}))
-
-
-@app.route("/ideas", methods=['POST', 'OPTIONS'])
-def call_post_log():
-    if request.method == "OPTIONS":
-        return _build_cors_prelight_response()
     if request.method == "POST":
-        send_log(request.get_json())
+        send_idea(request.get_json(), id)
         return _build_cors_actual_response(jsonify({'success': 'true'}))
 
 
-def send_log(log):
-    file_writer = FileWriter(path_to_file)
-    file_writer.write_line(log)
+def send_idea(idea, id):
+    file_writer = FileWriter(path_to_file + id + ".txt")
+    file_writer.write_line(idea)
 
 
-def clear_logs():
-    file_writer = FileWriter(path_to_file)
+def clear_idea(id):
+    file_writer = FileWriter(path_to_file + id + ".txt")
     file_writer.clear()
 
 
-def get_logs():
-    file_reader = FileReader(path_to_file)
+def get_idea(id):
+    file_reader = FileReader(path_to_file + id + ".txt")
     return file_reader.get_json()
 
 
@@ -76,6 +70,4 @@ def _build_cors_actual_response(response):
 
 
 if __name__ == "__main__":
-    file = open(path_to_file, "w+")
-    file.close()
     app.run(debug=True)

@@ -2,17 +2,12 @@ import json
 import os
 from flask import jsonify
 
-
-class NotFoundException(Exception):
-    pass
-
-
 class FileReader:
     def __init__(self, file: str):
-        if os.path.isfile(file):
-            self.file = file
-        else:
-            raise NotFoundException("file was not found")
+        if not os.path.isfile(file):
+            fileLoc = open(file, "w")
+            fileLoc.close()
+        self.file = file
 
     def get_json(self):
         f = open(self.file, 'r')
@@ -27,17 +22,17 @@ class FileReader:
 
 class FileWriter:
     def __init__(self, file):
-        if os.path.isfile(file):
-            self.file = file
-        else:
-            raise NotFoundException("file was not found")
+        if not os.path.isfile(file):
+            fileLoc = open(file, "w")
+            fileLoc.close()
+        self.file = file
 
     def write_lines(self, lines: []):
         for line in lines:
             self.write_line(line)
 
     def write_line(self, line: str):
-        f = open(self.file, "a+")
+        f = open(self.file, "w")
         f.write(str(line) + "\n")
         f.close()
 

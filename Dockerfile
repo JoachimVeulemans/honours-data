@@ -19,17 +19,21 @@ RUN apt-get -y install libapache2-mod-wsgi-py3
 # 7 - Install packages via pip3
 RUN pip3 install pillow Flask requests flask-cors flask-login
 
-# 8 - Copy project files to docker container
-COPY . /var/www/public
+# 8 - Make sure we get the output to our console
+RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
+    ln -sf /proc/self/fd/1 /var/log/apache2/error.log
 
 # 9 - Expose port 80 for endpoint connection
 EXPOSE 80
 
-# 10 - Make files executable in docker container
+# 10 - Copy project files to docker container
+COPY . /var/www/public
+
+# 11 - Make files executable in docker container
 RUN chmod a+rwx -R var/www/public
 
-# 11 - Copy apache configuration
+# 12 - Copy apache configuration
 ADD apache.conf /etc/apache2/sites-enabled/000-default.conf
 
-# 12 - Start Apache
+# 13 - Start Apache
 CMD /usr/sbin/apache2ctl -D FOREGROUND
