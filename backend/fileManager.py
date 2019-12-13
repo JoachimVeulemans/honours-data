@@ -11,12 +11,13 @@ class FileReader:
 
     def get_json(self):
         f = open(self.file, 'r')
-        lines = str(f.readlines())
+        lines = str(f.readline())
         f.close()
         lines = lines.replace("\\n", "")
         lines = lines.replace("\"", "")
         lines = lines.replace("'", '"')
-        print(lines)
+        if lines == "":
+            lines = "[]"
         return json.loads(lines)
 
 

@@ -1,0 +1,8 @@
+frontend/node_modules/
+.vs/
+.idea/
+frontend/.vs/
+backend/.vs/
+frontend/.idea/
+backend/.idea/
+*.pyc
