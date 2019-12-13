@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run -it -p 5000:80 message-logger-viewer:backend
+docker run -p 5000:80 joachimveulemans/honours-data:backend
