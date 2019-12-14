@@ -30,7 +30,8 @@ class FilesReader:
         onlyfiles = [f for f in listdir(self.path) if isfile(join(self.path, f))]
         correctFiles = []
         for file in onlyfiles:
-            correctFiles.append(file.split(".txt")[0])
+            if (file.__contains__(".txt")):
+                correctFiles.append(file.split(".txt")[0])
         return correctFiles
 
 
