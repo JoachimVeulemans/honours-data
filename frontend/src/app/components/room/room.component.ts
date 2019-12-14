@@ -25,7 +25,7 @@ export class RoomComponent implements OnInit {
     this.getRoom(roomId);
   }
 
-  private _options: { width, height } = { width: 800, height: 600 };
+  public _options: { width, height } = { width: 800, height: 600 };
   
   get options() {
     return this._options = {

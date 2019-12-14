@@ -10,6 +10,8 @@ import { LinkVisualComponent } from './visuals/shared/link-visual/link-visual.co
 import { D3Service } from './d3/d3.service';
 import { RoomComponent } from './components/room/room.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DraggableDirective } from './d3/directives/draggable.directive';
+import { ZoomableDirective } from './d3/directives/zoomable.directive';
 
 @NgModule({
     declarations: [
@@ -17,7 +19,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
         NodeVisualComponent,
         LinkVisualComponent,
         RoomComponent,
-        DashboardComponent
+        DashboardComponent,
+        DraggableDirective,
+        ZoomableDirective
     ],
     imports: [
         BrowserModule,
