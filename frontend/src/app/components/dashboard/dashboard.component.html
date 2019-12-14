@@ -6,6 +6,6 @@
     <div style="display: none;" id="error" class="alert alert-danger m-3 row"></div>
 
     <div *ngFor="let room of rooms">
-        <p>{{room}}</p>
+        <a [routerLink]="['/room/' + room]">{{room}}</a>
     </div>
 </div>
