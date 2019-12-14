@@ -5,10 +5,19 @@ import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NodeVisualComponent } from './visuals/shared/node-visual/node-visual.component';
+import { LinkVisualComponent } from './visuals/shared/link-visual/link-visual.component';
+import { D3Service } from './d3/d3.service';
+import { RoomComponent } from './components/room/room.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        NodeVisualComponent,
+        LinkVisualComponent,
+        RoomComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,
@@ -17,7 +26,8 @@ import { FormsModule } from '@angular/forms';
         FormsModule
     ],
     providers: [
-        ApiService
+        ApiService,
+        D3Service
     ],
     bootstrap: [
         AppComponent

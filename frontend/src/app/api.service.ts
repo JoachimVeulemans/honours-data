@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { BigTree } from './models/bigtree.model';
 
 @Injectable({
     providedIn: 'root'
@@ -12,13 +13,18 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    getAllLogs(): Observable<any[]> {
-        const url = `${this._apiURL}/logs`;
-        return this.http.get<any[]>(url, this.optionsWithJSON);
+    getAllRooms(): Observable<string[]> {
+        const url = `${this._apiURL}/list`;
+        return this.http.get<string[]>(url, this.optionsWithJSON);
     }
 
-    clearAllLogs(): Observable<any> {
-        const url = `${this._apiURL}/logs`;
+    getRoom(roomId: string): Observable<BigTree[]> {
+        const url = `${this._apiURL}/${roomId}`;
+        return this.http.get<BigTree[]>(url, this.optionsWithJSON);
+    }
+
+    clearRoom(roomId: string): Observable<any> {
+        const url = `${this._apiURL}/${roomId}`;
         return this.http.delete<any>(url, this.optionsWithJSON);
     }
 }

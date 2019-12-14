@@ -1,0 +1,72 @@
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Link } from 'src/app/d3/models/link';
+import { Node } from 'src/app/d3/models/node';
+import { BigTree } from 'src/app/models/bigtree.model';
+import { ApiService } from 'src/app/api.service';
+import { ForceDirectedGraph } from 'src/app/d3/models';
+import { D3Service } from 'src/app/d3/d3.service';
+
+@Component({
+  selector: 'app-room',
+  templateUrl: './room.component.html',
+  styleUrls: ['./room.component.scss']
+})
+export class RoomComponent implements OnInit {
+  trees: BigTree[] = [];
+  nodes: Node[] = [];
+  links: Link[] = [];
+  graph: ForceDirectedGraph;
+
+  constructor(private apiService: ApiService, private d3Service: D3Service, private ref: ChangeDetectorRef) { }
+
+  ngOnInit() {
+    this.getRoom();
+  }
+
+  private _options: { width, height } = { width: 800, height: 600 };
+  
+  get options() {
+    return this._options = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+  }
+
+  parseRoom() {
+    this.links = [];
+    this.nodes = [new Node("Room")];
+    this.trees.forEach(tree => {
+      this.nodes = this.nodes.concat(new Node(tree["Description"]));
+      this.links = this.links.concat(new Link(this.nodes[0], this.nodes[this.nodes.length - 1]));
+      let index = this.nodes.length - 1;
+     
+      tree["ChildIdeaDescriptions"].forEach(branch => {
+        this.nodes = this.nodes.concat(new Node(branch));
+        this.links = this.links.concat(new Link(this.nodes[index], this.nodes[this.nodes.length - 1]));
+      });
+    });
+    this.restartSimulation();
+  }
+
+  restartSimulation() {
+    this.graph = this.d3Service.getForceDirectedGraph(this.nodes, this.links, this.options);
+  
+    this.graph.ticker.subscribe((d) => {
+      this.ref.markForCheck();
+    });
+
+    this.graph.initSimulation(this.options);
+  }
+
+  getRoom(): void {
+    const sub = this.apiService.getRoom("ideas").subscribe((value) => {
+      this.trees = value;
+      sub.unsubscribe();
+      console.log(this.trees);
+      this.parseRoom();
+    }, (error) => {
+      console.log(error.message);
+      sub.unsubscribe();
+    });
+  }
+}
