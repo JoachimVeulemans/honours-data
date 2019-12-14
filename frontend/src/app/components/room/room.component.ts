@@ -5,6 +5,7 @@ import { BigTree } from 'src/app/models/bigtree.model';
 import { ApiService } from 'src/app/api.service';
 import { ForceDirectedGraph } from 'src/app/d3/models';
 import { D3Service } from 'src/app/d3/d3.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-room',
@@ -17,10 +18,11 @@ export class RoomComponent implements OnInit {
   links: Link[] = [];
   graph: ForceDirectedGraph;
 
-  constructor(private apiService: ApiService, private d3Service: D3Service, private ref: ChangeDetectorRef) { }
+  constructor(private apiService: ApiService, private d3Service: D3Service, private ref: ChangeDetectorRef, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getRoom();
+    const roomId = this.route.snapshot.params["id"];
+    this.getRoom(roomId);
   }
 
   private _options: { width, height } = { width: 800, height: 600 };
@@ -58,8 +60,8 @@ export class RoomComponent implements OnInit {
     this.graph.initSimulation(this.options);
   }
 
-  getRoom(): void {
-    const sub = this.apiService.getRoom("ideas").subscribe((value) => {
+  getRoom(roomId: string): void {
+    const sub = this.apiService.getRoom(roomId).subscribe((value) => {
       this.trees = value;
       sub.unsubscribe();
       console.log(this.trees);
