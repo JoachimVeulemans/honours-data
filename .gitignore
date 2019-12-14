@@ -6,3 +6,4 @@ backend/.vs/
 frontend/.idea/
 backend/.idea/
 *.pyc
+frontend/dist/
