@@ -22,9 +22,9 @@ import { Node } from '../../../d3/models/node';
   `
 })
 export class NodeVisualComponent {
-  private _node: Node;
-  private _text2: string = '';
-  private _text3: string = '';
+  _node: Node;
+  _text2: string = '';
+  _text3: string = '';
   @Input('nodeVisual')
   set nodeVisual(value: Node) {
     this._node = value;
