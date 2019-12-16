@@ -36,14 +36,14 @@ export class RoomComponent implements OnInit {
 
   parseRoom() {
     this.links = [];
-    this.nodes = [new Node("Room")];
+    this.nodes = [new Node("Room", "ROOM")];
     this.trees.forEach(tree => {
-      this.nodes = this.nodes.concat(new Node(tree["Description"]));
+      this.nodes = this.nodes.concat(new Node(tree["Description"], "TREE"));
       this.links = this.links.concat(new Link(this.nodes[0], this.nodes[this.nodes.length - 1]));
       let index = this.nodes.length - 1;
      
       tree["ChildIdeaDescriptions"].forEach(branch => {
-        this.nodes = this.nodes.concat(new Node(branch));
+        this.nodes = this.nodes.concat(new Node(branch, "BRANCH"));
         this.links = this.links.concat(new Link(this.nodes[index], this.nodes[this.nodes.length - 1]));
       });
     });
