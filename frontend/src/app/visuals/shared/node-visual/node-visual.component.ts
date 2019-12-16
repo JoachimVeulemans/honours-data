@@ -29,7 +29,7 @@ export class NodeVisualComponent {
   _width: number = 70;
   _height: number = 30;
   _textHeightOffset: number = 5;
-  _color: string = "#4285F4";
+  _color: string = "#2196f3";
 
   @Input('nodeVisual')
   set nodeVisual(value: Node) {
@@ -40,10 +40,10 @@ export class NodeVisualComponent {
 
   processLayout() {
     if (this._node.type == "TREE") {
-      this._color = "#FF8800";
+      this._color = "#ff9800";
     }
     if (this._node.type == "BRANCH") {
-      this._color = "#00C851";
+      this._color = "#4caf50";
     }
   }
 
