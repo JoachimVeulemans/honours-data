@@ -38,6 +38,8 @@ def call_idea(id):
     if request.method == "OPTIONS":
         return _build_cors_prelight_response()
     if request.method == "GET":
+        if id == "favicon.ico":
+            return _build_cors_actual_response(jsonify({'success': 'false'}))
         return _build_cors_actual_response(jsonify(get_idea(id)))
     if request.method == 'DELETE':
         clear_idea(id)
