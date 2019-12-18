@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/api.service';
 import { ForceDirectedGraph } from 'src/app/d3/models';
 import { D3Service } from 'src/app/d3/d3.service';
 import { ActivatedRoute } from '@angular/router';
+import { Idea } from 'src/app/models/idea.model';
 
 @Component({
   selector: 'app-room',
@@ -61,10 +62,9 @@ export class RoomComponent implements OnInit {
   }
 
   getRoom(roomId: string): void {
-    const sub = this.apiService.getRoom(roomId).subscribe((value) => {
-      this.trees = value;
+    const sub = this.apiService.getRoom(roomId).subscribe((value: Idea) => {      
+      this.trees = value["Ideas"];
       sub.unsubscribe();
-      console.log(this.trees);
       this.parseRoom();
     }, (error) => {
       console.log(error.message);

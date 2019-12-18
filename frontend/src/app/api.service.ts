@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BigTree } from './models/bigtree.model';
+import { Idea } from './models/idea.model';
 
 @Injectable({
     providedIn: 'root'
@@ -18,9 +18,9 @@ export class ApiService {
         return this.http.get<string[]>(url, this.optionsWithJSON);
     }
 
-    getRoom(roomId: string): Observable<BigTree[]> {
+    getRoom(roomId: string): Observable<Idea> {
         const url = `${this._apiURL}/${roomId}`;
-        return this.http.get<BigTree[]>(url, this.optionsWithJSON);
+        return this.http.get<Idea>(url, this.optionsWithJSON);
     }
 
     clearRoom(roomId: string): Observable<any> {
