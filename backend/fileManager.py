@@ -1,8 +1,9 @@
 import json
 import os
-from flask import jsonify
 from os import listdir
 from os.path import isfile, join
+from json import JSONDecodeError
+
 
 class FileReader:
     def __init__(self, file: str):
@@ -20,7 +21,12 @@ class FileReader:
         lines = lines.replace("'", '"')
         if lines == "":
             lines = "[]"
-        return json.loads(lines)
+        try:
+            return_value = json.loads(lines)
+        except JSONDecodeError:
+            return_value = "Je hebt geen geldige JSON meegegeven met je POST request. Dit is wat je gestuurd hebt: " + lines
+
+        return return_value
 
 class FilesReader:
     def __init__(self, path: str):
