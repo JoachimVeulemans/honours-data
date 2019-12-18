@@ -16,17 +16,16 @@ class FileReader:
         f = open(self.file, 'r')
         lines = str(f.readline())
         f.close()
-        lines = lines.replace("\\n", "")
-        lines = lines.replace("\"", "")
-        lines = lines.replace("'", '"')
         if lines == "":
             lines = "[]"
         try:
             return_value = json.loads(lines)
-        except JSONDecodeError:
+        except JSONDecodeError as error:
+            print(error)
             return_value = "Je hebt geen geldige JSON meegegeven met je POST request. Dit is wat je gestuurd hebt: " + lines
 
         return return_value
+
 
 class FilesReader:
     def __init__(self, path: str):
@@ -54,7 +53,15 @@ class FileWriter:
 
     def write_line(self, line: str):
         f = open(self.file, "w")
-        f.write(str(line) + "\n")
+        line = str(line)
+        line = line.replace("{'", '{\"')
+        line = line.replace("'}", '\"}')
+        line = line.replace("':", '\":')
+        line = line.replace(", '", ', \"')
+        line = line.replace(": '", ': \"')
+        line = line.replace("', ", '\", ')
+
+        f.write(line)
         f.close()
 
     def clear(self):
