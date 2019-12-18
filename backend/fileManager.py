@@ -17,7 +17,7 @@ class FileReader:
         lines = str(f.readline())
         f.close()
         if lines == "":
-            lines = "[]"
+            lines = '{"Ideas": []}'
         try:
             return_value = json.loads(lines)
         except JSONDecodeError as error:
