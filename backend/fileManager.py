@@ -60,6 +60,8 @@ class FileWriter:
         line = line.replace(", '", ', \"')
         line = line.replace(": '", ': \"')
         line = line.replace("', ", '\", ')
+        line = line.replace("['", '[\"')
+        line = line.replace("']", '\"]')
 
         f.write(line)
         f.close()
