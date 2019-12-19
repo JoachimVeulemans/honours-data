@@ -56,7 +56,7 @@ def send_idea(idea, id):
 
 def clear_idea(id):
     file_writer = FileWriter(path_to_files + id + ".txt")
-    file_writer.clear()
+    file_writer.remove()
 
 
 def get_idea(id):

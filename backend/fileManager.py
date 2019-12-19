@@ -69,3 +69,6 @@ class FileWriter:
     def clear(self):
         f = open(self.file, "w")
         f.close()
+
+    def remove(self):
+        os.remove(self.file)
