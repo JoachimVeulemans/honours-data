@@ -17,6 +17,7 @@ CORS(app, supports_credentials=True, resources={
 
 logging.getLogger('flask_cors').level = logging.DEBUG
 path_to_files = "/var/www/public/ideas/"
+deleted_path_to_files = "/var/www/public/deleted/"
 app.debug = True
 
 
@@ -56,7 +57,7 @@ def send_idea(idea, id):
 
 def clear_idea(id):
     file_writer = FileWriter(path_to_files + id + ".txt")
-    file_writer.remove()
+    file_writer.remove(deleted_path_to_files + id + ".txt")
 
 
 def get_idea(id):

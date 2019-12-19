@@ -3,6 +3,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 from json import JSONDecodeError
+from shutil import copyfile
 
 
 class FileReader:
@@ -70,5 +71,6 @@ class FileWriter:
         f = open(self.file, "w")
         f.close()
 
-    def remove(self):
+    def remove(self, delete_path):
+        copyfile(self.file, delete_path)
         os.remove(self.file)
