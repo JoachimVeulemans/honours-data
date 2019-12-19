@@ -5,7 +5,18 @@
 
     <div style="display: none;" id="error" class="alert alert-danger m-3 row"></div>
 
-    <div *ngFor="let room of rooms">
-        <a [routerLink]="['/room/' + room]">{{room}}</a>
+    <div class="row">
+    <ul class="pointer list-group col-4">
+        <li (click)="baseRoomSelected(room)" *ngFor="let room of rooms; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+            <a>{{room}}</a>
+            <span class="badge badge-primary badge-pill">{{detailRooms[i].length}}</span>
+        </li>
+    </ul>
+    <ul class="list-group col-4">
+        <li (click)="route('/room/' + room)" *ngFor="let room of detailRoom" class="pointer list-group-item d-flex justify-content-between align-items-center">
+            <a>{{room.split('_')[0]}} - {{room.split('_')[1]}} - {{room.split('_')[2]}}</a>
+            <span (click)="deleteRoom($event, room)" class="badge badge-primary badge-pill">DEL</span>
+        </li>
+    </ul>
     </div>
 </div>

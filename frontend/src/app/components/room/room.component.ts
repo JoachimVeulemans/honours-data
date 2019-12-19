@@ -18,12 +18,13 @@ export class RoomComponent implements OnInit {
   nodes: Node[] = [];
   links: Link[] = [];
   graph: ForceDirectedGraph;
+  roomId: string;
 
   constructor(private apiService: ApiService, private d3Service: D3Service, private ref: ChangeDetectorRef, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const roomId = this.route.snapshot.params["id"];
-    this.getRoom(roomId);
+    this.roomId = this.route.snapshot.params["id"];
+    this.getRoom();
   }
 
   public _options: { width, height } = { width: 800, height: 600 };
@@ -61,8 +62,8 @@ export class RoomComponent implements OnInit {
     this.graph.initSimulation(this.options);
   }
 
-  getRoom(roomId: string): void {
-    const sub = this.apiService.getRoom(roomId).subscribe((value: Idea) => {      
+  getRoom(): void {
+    const sub = this.apiService.getRoom(this.roomId).subscribe((value: Idea) => {      
       this.trees = value["Ideas"];
       sub.unsubscribe();
       this.parseRoom();
