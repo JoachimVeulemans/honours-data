@@ -8,23 +8,24 @@ RUN apt-get update
 RUN apt-get upgrade -y 
 
 # 4 - Install needed packages
-RUN apt-get install apache2 python3 python3-pip -y
+RUN apt-get install -y apache2 python3 python3-pip libapache2-mod-wsgi-py3
 
-# 5 - Remove old libapache2-mod-wsgi
-RUN apt-get -y remove libapache2-mod-wsgi
+# 5 - Copy requirements file for pip install
+COPY requirements.txt /var/www/public/requirements.txt
 
-# 6 - Install new libapache2-mod-wsgi-py3
-RUN apt-get -y install libapache2-mod-wsgi-py3
+# 6 - Install packages via pip3
+RUN pip3 install -r /var/www/public/requirements.txt
 
-# 7 - Install packages via pip3
-RUN pip3 install pillow Flask requests flask-cors flask-login
-
-# 8 - Make sure we get the output to our console
+# 7 - Make sure we get the output to our console
 RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log
 
-# 9 - Expose port 80 for endpoint connection
+# 8 - Expose port 80 for endpoint connection
 EXPOSE 80
+
+# 9 - Make needed directories
+RUN mkdir -p /var/www/public/current/
+RUN mkdir -p /var/www/public/deleted/
 
 # 10 - Copy project files to docker container
 COPY . /var/www/public

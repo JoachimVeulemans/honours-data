@@ -1,70 +1,80 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { Node } from '../../../d3/models/node';
+import { D3Service } from 'src/app/d3/d3.service';
+import { ForceDirectedGraph } from 'src/app/d3/models/force-directed-graph';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: '[nodeVisual]',
   template: `
-    <svg:g [attr.transform]="'translate(' + _node.x + ',' + _node.y + ')'">
+    <svg:g [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
       <svg:ellipse
           cx="0"
           cy="0"
-          [attr.rx]="_width"
-          [attr.ry]="_height"
+          [attr.rx]="width"
+          [attr.ry]="height"
           stroke="black"
           stroke-width="3"
-          [attr.fill]="_color">
+          [attr.fill]="color">
       </svg:ellipse>
-      <svg:text x="0" [attr.y]="_textHeightOffset" text-anchor="middle">
-        {{_node.id}}
-        <tspan x="0" [attr.y]="_textHeightOffset + 20">{{_text2}}</tspan>
-        <tspan x="0" [attr.y]="_textHeightOffset + 40">{{_text3}}</tspan>
+      <svg:text x="0" [attr.y]="textHeightOffset" text-anchor="middle">
+        {{node.id}}
+        <tspan x="0" [attr.y]="textHeightOffset + 20">{{text2}}</tspan>
+        <tspan x="0" [attr.y]="textHeightOffset + 40">{{text3}}</tspan>
         </svg:text>
     </svg:g>
   `
 })
-export class NodeVisualComponent {
-  _node: Node;
-  _text2: string = '';
-  _text3: string = '';
-  _width: number = 70;
-  _height: number = 30;
-  _textHeightOffset: number = 5;
-  _color: string = "#2196f3";
+export class NodeVisualComponent  implements OnInit {
+  node: Node;
+  text2 = '';
+  text3 = '';
+  width = 70;
+  height = 30;
+  textHeightOffset = 5;
+  color = '#2196f3';
 
   @Input('nodeVisual')
   set nodeVisual(value: Node) {
-    this._node = value;
+    this.node = value;
     this.processText();
     this.processLayout();
   }
+  @Input() graph: ForceDirectedGraph;
+
+  constructor(private d3Service: D3Service, private element: ElementRef) { }
+
+  ngOnInit() {
+    this.d3Service.applyDraggableBehaviour(this.element.nativeElement, this.node, this.graph);
+  }
 
   processLayout() {
-    if (this._node.type == "TREE") {
-      this._color = "#ff9800";
+    if (this.node.type === 'TREE') {
+      this.color = '#ff9800';
     }
-    if (this._node.type == "BRANCH") {
-      this._color = "#4caf50";
+    if (this.node.type === 'BRANCH') {
+      this.color = '#4caf50';
     }
   }
 
   processText() {
-    const words = this._node.id.split(" ");
-    this._node.id = '';
-    this._text2 = '';
+    const words = this.node.id.split(' ');
+    this.node.id = '';
+    this.text2 = '';
 
     for (let i = 0; i < words.length; i++) {
       if (i < 3) {
-        this._node.id += words[i] + " ";
+        this.node.id += words[i] + ' ';
       } else if (i < 9) {
-        this._text2 += words[i] + " ";
-        this._width = 100;
-        this._height = 50;
-        this._textHeightOffset = -5;
+        this.text2 += words[i] + ' ';
+        this.width = 100;
+        this.height = 50;
+        this.textHeightOffset = -5;
       } else {
-        this._text3 += words[i] + " ";
-        this._width = 120;
-        this._height = 60;
-        this._textHeightOffset = -10;
+        this.text3 += words[i] + ' ';
+        this.width = 120;
+        this.height = 60;
+        this.textHeightOffset = -10;
       }
     }
   }

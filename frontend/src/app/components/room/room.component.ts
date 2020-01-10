@@ -14,38 +14,39 @@ import { Idea } from 'src/app/models/idea.model';
   styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements OnInit {
+
+  constructor(private apiService: ApiService, private d3Service: D3Service,
+              private ref: ChangeDetectorRef, private route: ActivatedRoute) { }
+
+  get options() {
+    return this.OPTIONS = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+  }
   trees: BigTree[] = [];
   nodes: Node[] = [];
   links: Link[] = [];
   graph: ForceDirectedGraph;
   roomId: string;
 
-  constructor(private apiService: ApiService, private d3Service: D3Service, private ref: ChangeDetectorRef, private route: ActivatedRoute) { }
+  public OPTIONS: { width, height } = { width: 800, height: 600 };
 
   ngOnInit() {
-    this.roomId = this.route.snapshot.params["id"];
+    this.roomId = this.route.snapshot.params.id;
     this.getRoom();
-  }
-
-  public _options: { width, height } = { width: 800, height: 600 };
-  
-  get options() {
-    return this._options = {
-      width: window.innerWidth,
-      height: window.innerHeight
-    };
   }
 
   parseRoom() {
     this.links = [];
-    this.nodes = [new Node("Room", "ROOM")];
+    this.nodes = [new Node('Room', 'ROOM')];
     this.trees.forEach(tree => {
-      this.nodes = this.nodes.concat(new Node(tree["Description"], "TREE"));
+      this.nodes = this.nodes.concat(new Node(tree.Description, 'TREE'));
       this.links = this.links.concat(new Link(this.nodes[0], this.nodes[this.nodes.length - 1]));
-      let index = this.nodes.length - 1;
-     
-      tree["ChildIdeaDescriptions"].forEach(branch => {
-        this.nodes = this.nodes.concat(new Node(branch, "BRANCH"));
+      const index = this.nodes.length - 1;
+
+      tree.ChildIdeaDescriptions.forEach(branch => {
+        this.nodes = this.nodes.concat(new Node(branch, 'BRANCH'));
         this.links = this.links.concat(new Link(this.nodes[index], this.nodes[this.nodes.length - 1]));
       });
     });
@@ -54,7 +55,7 @@ export class RoomComponent implements OnInit {
 
   restartSimulation() {
     this.graph = this.d3Service.getForceDirectedGraph(this.nodes, this.links, this.options);
-  
+
     this.graph.ticker.subscribe((d) => {
       this.ref.markForCheck();
     });
@@ -63,8 +64,8 @@ export class RoomComponent implements OnInit {
   }
 
   getRoom(): void {
-    const sub = this.apiService.getRoom(this.roomId).subscribe((value: Idea) => {      
-      this.trees = value["Ideas"];
+    const sub = this.apiService.getRoom(this.roomId).subscribe((value: Idea) => {
+      this.trees = value.Ideas;
       sub.unsubscribe();
       this.parseRoom();
     }, (error) => {

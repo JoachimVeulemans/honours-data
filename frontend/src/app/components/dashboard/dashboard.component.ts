@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
   rooms: string[] = [];
   detailRooms: string[][] = [];
   detailRoom: string[] = [];
-  
+
   constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
@@ -19,21 +19,21 @@ export class DashboardComponent implements OnInit {
   }
 
   baseRoomSelected(baseRoom: string) {
-      const index = this.rooms.findIndex(element => element == baseRoom);
+      const index = this.rooms.findIndex(element => element === baseRoom);
       this.detailRoom = this.detailRooms[index];
   }
 
   deleteRoom($event, room: string): void {
       $event.stopPropagation();
       const sub = this.apiService.clearRoom(room).subscribe((value) => {
-        const index = this.rooms.findIndex(element => element == room.split('_')[0]);
-        this.detailRoom = this.detailRoom.filter(element => element != room);
-        this.detailRooms[index] = this.detailRooms[index].filter(element => element != room);
+        const index = this.rooms.findIndex(element => element === room.split('_')[0]);
+        this.detailRoom = this.detailRoom.filter(element => element !== room);
+        this.detailRooms[index] = this.detailRooms[index].filter(element => element !== room);
         sub.unsubscribe();
       }, (error) => {
           this.showError(error.message);
           sub.unsubscribe();
-      })
+      });
   }
 
   route(route: string): void {
@@ -43,16 +43,16 @@ export class DashboardComponent implements OnInit {
   getListOfRooms(): void {
       const sub = this.apiService.getAllRooms().subscribe((value) => {
           value.forEach(savedData => {
-              let saveName = savedData.split('_')[0];
-              if (this.rooms.findIndex(element => element == saveName) == -1) {
+              const saveName = savedData.split('_')[0];
+              if (this.rooms.findIndex(element => element === saveName) === -1) {
                   this.rooms.push(saveName);
                   this.detailRooms.push([]);
               }
           });
 
           value.forEach(savedData => {
-            let saveName = savedData.split('_')[0];
-            let index = this.rooms.findIndex(element => element == saveName);
+            const saveName = savedData.split('_')[0];
+            const index = this.rooms.findIndex(element => element === saveName);
             this.detailRooms[index].push(savedData);
           });
           sub.unsubscribe();
@@ -65,10 +65,10 @@ export class DashboardComponent implements OnInit {
   showError(message: string): void {
       const error = document.getElementById('error');
       error.innerText = message;
-      error.style.display = "block";
+      error.style.display = 'block';
       setTimeout(() => {
-          error.innerText = "";
-          error.style.display = "none";
+          error.innerText = '';
+          error.style.display = 'none';
       }, 5000);
   }
 }
