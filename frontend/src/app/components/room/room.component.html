@@ -1,7 +1,7 @@
 <h1 class="m-3">You are currently viewing room: {{roomId.split('_')[0]}} - {{roomId.split('_')[1]}} - {{roomId.split('_')[2]}}</h1>
-<svg #svg [attr.width]="_options.width" [attr.height]="_options.height">
+<svg #svg [attr.width]="OPTIONS.width" [attr.height]="OPTIONS.height">
     <g>
       <g [linkVisual]="link" *ngFor="let link of links"></g>
-      <g [nodeVisual]="node" *ngFor="let node of nodes"></g>
+      <g [nodeVisual]="node" [graph]="graph" *ngFor="let node of nodes"></g>
     </g>
 </svg>

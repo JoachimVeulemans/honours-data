@@ -8,23 +8,23 @@ import { Idea } from './models/idea.model';
     providedIn: 'root'
 })
 export class ApiService {
-    private _apiURL = environment.apiUrl;
+    private API_URL = environment.apiUrl;
     private optionsWithJSON = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
     constructor(private http: HttpClient) { }
 
     getAllRooms(): Observable<string[]> {
-        const url = `${this._apiURL}/list`;
+        const url = `${this.API_URL}/list`;
         return this.http.get<string[]>(url, this.optionsWithJSON);
     }
 
     getRoom(roomId: string): Observable<Idea> {
-        const url = `${this._apiURL}/${roomId}`;
+        const url = `${this.API_URL}/${roomId}`;
         return this.http.get<Idea>(url, this.optionsWithJSON);
     }
 
     clearRoom(roomId: string): Observable<any> {
-        const url = `${this._apiURL}/${roomId}`;
+        const url = `${this.API_URL}/${roomId}`;
         return this.http.delete<any>(url, this.optionsWithJSON);
     }
 }
