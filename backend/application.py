@@ -1,9 +1,9 @@
 #!/usr/bin/python3
+
 import os
 from flask import Flask, jsonify, request, Response, make_response
 from fileManager import FileReader, FilesReader, FileWriter
 from flask_cors import *
-from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 import logging
 
 origin = os.getenv('ORIGIN')
