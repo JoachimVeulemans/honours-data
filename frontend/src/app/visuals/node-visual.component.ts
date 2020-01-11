@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ElementRef } from '@angular/core';
-import { Node } from '../../../d3/models/node';
+import {Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Node, ForceDirectedGraph } from '../d3/models';
 import { D3Service } from 'src/app/d3/d3.service';
-import { ForceDirectedGraph } from 'src/app/d3/models/force-directed-graph';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -25,8 +24,8 @@ import { ForceDirectedGraph } from 'src/app/d3/models/force-directed-graph';
     </svg:g>
   `
 })
-export class NodeVisualComponent  implements OnInit {
-  node: Node;
+export class NodeVisualComponent implements OnInit {
+  node: Node = new Node();
   text2 = '';
   text3 = '';
   width = 70;
@@ -36,9 +35,11 @@ export class NodeVisualComponent  implements OnInit {
 
   @Input('nodeVisual')
   set nodeVisual(value: Node) {
-    this.node = value;
-    this.processText();
-    this.processLayout();
+      if (value != null) {
+          this.node = value;
+          this.processText();
+          this.processLayout();
+      }
   }
   @Input() graph: ForceDirectedGraph;
 
