@@ -7,7 +7,7 @@ export const environment = {
     /** Setting whether production is active in this environment */
     production: false,
     /** Defines the URL for where API calls to the backend should point */
-    apiUrl: 'https://backend.honourdata.jocawebs.be' // apiUrl: 'http://localhost:5000'
+    apiUrl: 'http://localhost:5000'
 };
 
 

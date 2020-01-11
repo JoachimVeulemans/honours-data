@@ -18,19 +18,15 @@ export class RoomComponent implements OnInit {
   constructor(private apiService: ApiService, private d3Service: D3Service,
               private ref: ChangeDetectorRef, private route: ActivatedRoute) { }
 
-  get options() {
-    return this.OPTIONS = {
-      width: window.innerWidth,
-      height: window.innerHeight
-    };
-  }
+  options = {
+      width: window.innerWidth - 100,
+      height: window.innerHeight - 100
+  };
   trees: BigTree[] = [];
   nodes: Node[] = [];
   links: Link[] = [];
   graph: ForceDirectedGraph;
   roomId: string;
-
-  public OPTIONS: { width, height } = { width: 800, height: 600 };
 
   ngOnInit() {
     this.roomId = this.route.snapshot.params.id;

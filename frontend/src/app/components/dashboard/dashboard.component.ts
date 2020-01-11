@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,7 @@ export class DashboardComponent implements OnInit {
   rooms: string[] = [];
   detailRooms: string[][] = [];
   detailRoom: string[] = [];
+  subscription: Subscription = new Subscription();
 
   constructor(private apiService: ApiService, private router: Router) { }
 
@@ -25,14 +27,14 @@ export class DashboardComponent implements OnInit {
 
   deleteRoom($event, room: string): void {
       $event.stopPropagation();
-      const sub = this.apiService.clearRoom(room).subscribe((value) => {
-        const index = this.rooms.findIndex(element => element === room.split('_')[0]);
-        this.detailRoom = this.detailRoom.filter(element => element !== room);
-        this.detailRooms[index] = this.detailRooms[index].filter(element => element !== room);
-        sub.unsubscribe();
+      this.subscription = this.apiService.clearRoom(room).subscribe((value) => {
+          this.subscription.unsubscribe();
+          const index = this.rooms.findIndex(element => element === room.split('_')[0]);
+          this.detailRoom = this.detailRoom.filter(element => element !== room);
+          this.detailRooms[index] = this.detailRooms[index].filter(element => element !== room);
       }, (error) => {
+          this.subscription.unsubscribe();
           this.showError(error.message);
-          sub.unsubscribe();
       });
   }
 
@@ -41,7 +43,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getListOfRooms(): void {
-      const sub = this.apiService.getAllRooms().subscribe((value) => {
+      this.subscription = this.apiService.getAllRooms().subscribe((value) => {
+          this.subscription.unsubscribe();
           value.forEach(savedData => {
               const saveName = savedData.split('_')[0];
               if (this.rooms.findIndex(element => element === saveName) === -1) {
@@ -55,10 +58,9 @@ export class DashboardComponent implements OnInit {
             const index = this.rooms.findIndex(element => element === saveName);
             this.detailRooms[index].push(savedData);
           });
-          sub.unsubscribe();
       }, (error) => {
+          this.subscription.unsubscribe();
           this.showError(error.message);
-          sub.unsubscribe();
       });
   }
 
