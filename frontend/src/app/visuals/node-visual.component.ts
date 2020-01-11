@@ -1,6 +1,7 @@
-import {Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { Node, ForceDirectedGraph } from '../d3/models';
 import { D3Service } from 'src/app/d3/d3.service';
+import { UnityPosition } from '../models/unityposition.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -20,6 +21,7 @@ import { D3Service } from 'src/app/d3/d3.service';
         {{node.id}}
         <tspan x="0" [attr.y]="textHeightOffset + 20">{{text2}}</tspan>
         <tspan x="0" [attr.y]="textHeightOffset + 40">{{text3}}</tspan>
+        <tspan x="0" [attr.y]="textHeightOffset - 20">{{positionText}}</tspan>
         </svg:text>
     </svg:g>
   `
@@ -28,6 +30,7 @@ export class NodeVisualComponent implements OnInit {
   node: Node = new Node();
   text2 = '';
   text3 = '';
+  positionText = '';
   width = 70;
   height = 30;
   textHeightOffset = 5;
@@ -77,6 +80,10 @@ export class NodeVisualComponent implements OnInit {
         this.height = 60;
         this.textHeightOffset = -10;
       }
+    }
+
+    if (this.node.position.x !== 0 && this.node.position.y !== 0) {
+      this.positionText = "X: " + this.node.position.x.toPrecision(2) + " Y: " + this.node.position.y.toPrecision(2);
     }
   }
 }
