@@ -14,7 +14,7 @@ ARG configuration=prod
 RUN npm run build -- --${configuration} --output-path=./dist/out
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.15
+FROM nginx:latest
 
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 
