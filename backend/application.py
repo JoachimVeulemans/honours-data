@@ -6,14 +6,16 @@ from fileManager import FileReader, FilesReader, FileWriter
 from flask_cors import *
 import logging
 
+base_url = "https://honourdata.joachimveulemans.be"
+
 origin = os.getenv('ORIGIN')
 if origin is None:
-    origin = 'https://honourdata.jocawebs.be'
+    origin = base_url
 
 app = Flask(__name__)
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = False
 CORS(app, supports_credentials=True, resources={
-    r"/*": {"origins": ["https://honourdata.jocawebs.be:443/*"]}})
+    r"/*": {"origins": [base_url + ":443/*"]}})
 
 logging.getLogger('flask_cors').level = logging.DEBUG
 path_to_files = "/var/www/public/ideas/"
