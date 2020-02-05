@@ -21,7 +21,6 @@ import { UnityPosition } from '../models/unityposition.model';
         {{node.id}}
         <tspan x="0" [attr.y]="textHeightOffset + 20">{{text2}}</tspan>
         <tspan x="0" [attr.y]="textHeightOffset + 40">{{text3}}</tspan>
-        <tspan x="0" [attr.y]="textHeightOffset - 20">{{positionText}}</tspan>
         </svg:text>
     </svg:g>
   `
@@ -30,7 +29,6 @@ export class NodeVisualComponent implements OnInit {
   node: Node = new Node();
   text2 = '';
   text3 = '';
-  positionText = '';
   width = 70;
   height = 30;
   textHeightOffset = 5;
@@ -82,8 +80,15 @@ export class NodeVisualComponent implements OnInit {
       }
     }
 
-    if (this.node.position.x !== 0 && this.node.position.y !== 0) {
-      this.positionText = "X: " + this.node.position.x.toPrecision(2) + " Y: " + this.node.position.y.toPrecision(2);
+    if (this.node.type !== "TREE") {
+      return;
+    }
+    if (this.text3 !== "") {
+      this.text3 += " (" + this.node.votes + ")";
+    } else if (this.text2 !== "") {
+      this.text2 += " (" + this.node.votes + ")";
+    } else {
+      this.node.id += " (" + this.node.votes + ")";
     }
   }
 }
