@@ -80,15 +80,15 @@ export class NodeVisualComponent implements OnInit {
       }
     }
 
-    if (this.node.type !== "TREE") {
+    if (this.node.type !== 'TREE') {
       return;
     }
-    if (this.text3 !== "") {
-      this.text3 += " (" + this.node.votes + ")";
-    } else if (this.text2 !== "") {
-      this.text2 += " (" + this.node.votes + ")";
+    if (this.text3 !== '') {
+      this.text3 += ' (' + this.node.votes + ')';
+    } else if (this.text2 !== '') {
+      this.text2 += ' (' + this.node.votes + ')';
     } else {
-      this.node.id += " (" + this.node.votes + ")";
+      this.node.id += ' (' + this.node.votes + ')';
     }
   }
 }
