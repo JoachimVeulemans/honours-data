@@ -1,6 +1,7 @@
-import {Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { Node, ForceDirectedGraph } from '../d3/models';
 import { D3Service } from 'src/app/d3/d3.service';
+import { UnityPosition } from '../models/unityposition.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -77,6 +78,17 @@ export class NodeVisualComponent implements OnInit {
         this.height = 60;
         this.textHeightOffset = -10;
       }
+    }
+
+    if (this.node.type !== 'TREE') {
+      return;
+    }
+    if (this.text3 !== '') {
+      this.text3 += ' (' + this.node.votes + ')';
+    } else if (this.text2 !== '') {
+      this.text2 += ' (' + this.node.votes + ')';
+    } else {
+      this.node.id += ' (' + this.node.votes + ')';
     }
   }
 }

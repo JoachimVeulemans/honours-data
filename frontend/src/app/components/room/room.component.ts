@@ -7,6 +7,7 @@ import { ForceDirectedGraph } from 'src/app/d3/models';
 import { D3Service } from 'src/app/d3/d3.service';
 import { ActivatedRoute } from '@angular/router';
 import { Idea } from 'src/app/models/idea.model';
+import { UnityPosition } from 'src/app/models/unityposition.model';
 
 @Component({
   selector: 'app-room',
@@ -37,7 +38,7 @@ export class RoomComponent implements OnInit {
     this.links = [];
     this.nodes = [new Node('Room', 'ROOM')];
     this.trees.forEach(tree => {
-      this.nodes = this.nodes.concat(new Node(tree.Description, 'TREE'));
+      this.nodes = this.nodes.concat(new Node(tree.Description, 'TREE', tree.Position, tree.Votes));
       this.links = this.links.concat(new Link(this.nodes[0], this.nodes[this.nodes.length - 1]));
       const index = this.nodes.length - 1;
 
