@@ -1,7 +1,28 @@
-<h1 class="m-3">You are currently viewing room: {{roomId.split('_')[0]}} - {{roomId.split('_')[1]}} - {{roomId.split('_')[2]}}</h1>
-<svg #svg [attr.width]="options.width" [attr.height]="options.height">
+<div class="row m-3">
+  <h1>You are currently viewing room: {{roomId.split('_')[0]}} - {{roomId.split('_')[1]}} - {{roomId.split('_')[2]}}</h1>
+</div>
+<div class="row m-0">
+<svg class="col-9 m-0 p-0" #svg [attr.width]="options.width" [attr.height]="options.height">
     <g>
       <g linkVisual [linkVisual]="link" *ngFor="let link of links"></g>
       <g nodeVisual [nodeVisual]="node" [graph]="graph" *ngFor="let node of nodes"></g>
     </g>
 </svg>
+<div class="col-3 m-0 p-3">
+  <h2>All ideas</h2>
+  <div *ngFor="let idea of nodes" >
+    <p class="m-0">
+      <span *ngIf="idea.type === 'TREE'">
+        <i class="fas fa-tree"></i>
+        {{idea.id}} (Votes: {{idea.votes}})
+        <br>
+      </span>
+      <span *ngIf="idea.type === 'BRANCH'" class="pl-3">
+        <i class="fab fa-pagelines"></i>
+        {{idea.id}}
+        <br>
+      </span>
+    </p>
+  </div>
+</div>
+</div>
