@@ -18,7 +18,7 @@ import { UnityPosition } from '../models/unityposition.model';
           [attr.fill]="color">
       </svg:ellipse>
       <svg:text x="0" [attr.y]="textHeightOffset" text-anchor="middle">
-        {{node.id}}
+        {{text1}}
         <tspan x="0" [attr.y]="textHeightOffset + 20">{{text2}}</tspan>
         <tspan x="0" [attr.y]="textHeightOffset + 40">{{text3}}</tspan>
         </svg:text>
@@ -27,6 +27,7 @@ import { UnityPosition } from '../models/unityposition.model';
 })
 export class NodeVisualComponent implements OnInit {
   node: Node = new Node();
+  text1 = '';
   text2 = '';
   text3 = '';
   width = 70;
@@ -61,12 +62,13 @@ export class NodeVisualComponent implements OnInit {
 
   processText() {
     const words = this.node.id.split(' ');
-    this.node.id = '';
+    this.text1 = '';
     this.text2 = '';
+    this.text3 = '';
 
     for (let i = 0; i < words.length; i++) {
       if (i < 3) {
-        this.node.id += words[i] + ' ';
+        this.text1 += words[i] + ' ';
       } else if (i < 9) {
         this.text2 += words[i] + ' ';
         this.width = 100;
@@ -84,11 +86,11 @@ export class NodeVisualComponent implements OnInit {
       return;
     }
     if (this.text3 !== '') {
-      this.text3 += ' (' + this.node.votes + ')';
+      this.text3 += ' (Votes: ' + this.node.votes + ')';
     } else if (this.text2 !== '') {
-      this.text2 += ' (' + this.node.votes + ')';
+      this.text2 += ' (Votes: ' + this.node.votes + ')';
     } else {
-      this.node.id += ' (' + this.node.votes + ')';
+      this.text1 += ' (Votes: ' + this.node.votes + ')';
     }
   }
 }

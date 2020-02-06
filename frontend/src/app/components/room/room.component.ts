@@ -20,7 +20,7 @@ export class RoomComponent implements OnInit {
               private ref: ChangeDetectorRef, private route: ActivatedRoute) { }
 
   options = {
-      width: window.innerWidth - 100,
+      width: (window.innerWidth / 4 * 3) - 100,
       height: window.innerHeight - 100
   };
   trees: BigTree[] = [];
@@ -62,7 +62,8 @@ export class RoomComponent implements OnInit {
 
   getRoom(): void {
     const sub = this.apiService.getRoom(this.roomId).subscribe((value: Idea) => {
-      this.trees = value.Ideas;
+
+      this.trees = value.Ideas.sort((n1, n2) => n1.Votes + n2.Votes);
       sub.unsubscribe();
       this.parseRoom();
     }, (error) => {
