@@ -7,7 +7,6 @@ import { ForceDirectedGraph } from 'src/app/d3/models';
 import { D3Service } from 'src/app/d3/d3.service';
 import { ActivatedRoute } from '@angular/router';
 import { Idea } from 'src/app/models/idea.model';
-import { UnityPosition } from 'src/app/models/unityposition.model';
 
 @Component({
   selector: 'app-room',
@@ -62,8 +61,7 @@ export class RoomComponent implements OnInit {
 
   getRoom(): void {
     const sub = this.apiService.getRoom(this.roomId).subscribe((value: Idea) => {
-
-      this.trees = value.Ideas.sort((n1, n2) => n1.Votes + n2.Votes);
+      this.trees = value.Ideas.sort((n1, n2) => n1.Votes - n2.Votes).reverse();
       sub.unsubscribe();
       this.parseRoom();
     }, (error) => {
