@@ -6,6 +6,7 @@ export class BigTree {
     public GameObjectName: string;
     public Position: UnityPosition;
     public Votes: number;
+    public Material: string;
 
     constructor() { }
 }

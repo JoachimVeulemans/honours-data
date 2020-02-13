@@ -15,11 +15,13 @@ export class Node implements d3.SimulationNodeDatum {
     type: string;
     position: UnityPosition;
     votes: number;
+    material: string;
 
-    constructor(id: string = '', type: string = '', position: UnityPosition = new UnityPosition(0, 0), votes: number = -1) {
+    constructor(id: string = '', type: string = '', position: UnityPosition = new UnityPosition(0, 0), votes: number = -1, material: string = 'BigTreeAO') {
         this.id = id;
         this.type = type;
         this.position = position;
         this.votes = votes;
+        this.material = material;
     }
 }

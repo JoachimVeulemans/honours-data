@@ -37,7 +37,7 @@ export class RoomComponent implements OnInit {
     this.links = [];
     this.nodes = [new Node('Room', 'ROOM')];
     this.trees.forEach(tree => {
-      this.nodes = this.nodes.concat(new Node(tree.Description, 'TREE', tree.Position, tree.Votes));
+      this.nodes = this.nodes.concat(new Node(tree.Description, 'TREE', tree.Position, tree.Votes, tree.Material));
       this.links = this.links.concat(new Link(this.nodes[0], this.nodes[this.nodes.length - 1]));
       const index = this.nodes.length - 1;
 

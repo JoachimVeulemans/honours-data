@@ -30,7 +30,7 @@ export class NodeVisualComponent implements OnInit {
   text1 = '';
   text2 = '';
   text3 = '';
-  width = 70;
+  width = 90;
   height = 30;
   textHeightOffset = 5;
   color = '#2196f3';
@@ -53,7 +53,18 @@ export class NodeVisualComponent implements OnInit {
 
   processLayout() {
     if (this.node.type === 'TREE') {
-      this.color = '#ff9800';
+      this.color = '#988f2a';
+    }
+    if (this.node.material != 'BigTreeAO') {
+      if (this.node.material == 'WildIdea') {
+        this.color = '#8C4843';
+      }
+      if (this.node.material == 'MostDelightIdea') {
+        this.color = '#90A583';
+      }
+      if (this.node.material == 'QuickWinIdea') {
+        this.color = '#C67601';
+      }
     }
     if (this.node.type === 'BRANCH') {
       this.color = '#4caf50';
@@ -71,12 +82,12 @@ export class NodeVisualComponent implements OnInit {
         this.text1 += words[i] + ' ';
       } else if (i < 9) {
         this.text2 += words[i] + ' ';
-        this.width = 100;
+        this.width = 110;
         this.height = 50;
         this.textHeightOffset = -5;
       } else {
         this.text3 += words[i] + ' ';
-        this.width = 120;
+        this.width = 130;
         this.height = 60;
         this.textHeightOffset = -10;
       }
