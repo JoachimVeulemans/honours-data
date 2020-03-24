@@ -10,7 +10,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'joachimveulemans/secure-messaging-platform'
+    repository: 'joachimveulemans/honours-data'
     command: 'buildAndPush'
     Dockerfile: 'frontend/Dockerfile'
     buildContext: 'frontend'
