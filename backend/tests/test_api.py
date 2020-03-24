@@ -7,7 +7,6 @@ import hashlib
 sys.path.append(os.path.join(sys.path[0],'..'))
 from application import app
 from parameterized import parameterized, parameterized_class
-from usermanager import get_salt
 
 class TestApi(unittest.TestCase):
     def setUp(self):
