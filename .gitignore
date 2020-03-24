@@ -3,3 +3,4 @@ node_modules/
 .idea/
 *.pyc
 frontend/dist/
+frontend/tests/
