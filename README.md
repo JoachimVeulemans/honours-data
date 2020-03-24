@@ -1,5 +1,7 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/joachimveulemans/honours-data)](https://hub.docker.com/r/joachimveulemans/honours-data/builds)
-[![Docker Automated Status](https://img.shields.io/docker/cloud/automated/joachimveulemans/honours-data)](https://hub.docker.com/r/joachimveulemans/honours-data)
+[![Frontend CI Build](https://img.shields.io/azure-devops/build/joachimveulemans/47256f4d-5368-4d3d-b3b8-f728c2a14bd8/9?label=Frontend%20CI%20Build)](https://dev.azure.com/JoachimVeulemans/honours-data/_build?definitionId=9)
+[![Frontend CD Build](https://img.shields.io/azure-devops/build/joachimveulemans/47256f4d-5368-4d3d-b3b8-f728c2a14bd8/8?label=Frontend%20CD%20Build)](https://dev.azure.com/JoachimVeulemans/honours-data/_build?definitionId=8)
+[![Backend CI Build](https://img.shields.io/azure-devops/build/joachimveulemans/47256f4d-5368-4d3d-b3b8-f728c2a14bd8/7?label=Backend%20CI%20Build)](https://dev.azure.com/JoachimVeulemans/honours-data/_build?definitionId=7)
+[![Backend CD Build](https://img.shields.io/azure-devops/build/joachimveulemans/47256f4d-5368-4d3d-b3b8-f728c2a14bd8/6?label=Backend%20CD%20Build)](https://dev.azure.com/JoachimVeulemans/honours-data/_build?definitionId=6)
 
 # Honours Data
 
