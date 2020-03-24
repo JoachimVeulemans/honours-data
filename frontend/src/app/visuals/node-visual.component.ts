@@ -55,14 +55,14 @@ export class NodeVisualComponent implements OnInit {
     if (this.node.type === 'TREE') {
       this.color = '#988f2a';
     }
-    if (this.node.material != 'BigTreeAO') {
-      if (this.node.material == 'WildIdea') {
+    if (this.node.material !== 'BigTreeAO') {
+      if (this.node.material === 'WildIdea') {
         this.color = '#8C4843';
       }
-      if (this.node.material == 'MostDelightIdea') {
+      if (this.node.material === 'MostDelightIdea') {
         this.color = '#90A583';
       }
-      if (this.node.material == 'QuickWinIdea') {
+      if (this.node.material === 'QuickWinIdea') {
         this.color = '#C67601';
       }
     }

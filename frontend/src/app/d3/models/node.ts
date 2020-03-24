@@ -17,7 +17,8 @@ export class Node implements d3.SimulationNodeDatum {
     votes: number;
     material: string;
 
-    constructor(id: string = '', type: string = '', position: UnityPosition = new UnityPosition(0, 0), votes: number = -1, material: string = 'BigTreeAO') {
+    constructor(id: string = '', type: string = '', position: UnityPosition = new UnityPosition(0, 0),
+        votes: number = -1, material: string = 'BigTreeAO') {
         this.id = id;
         this.type = type;
         this.position = position;

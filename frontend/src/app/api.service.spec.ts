@@ -4,15 +4,18 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed } from '@angular/core/testing';
 
 describe('ApiService', () => {
-    beforeEach(() => TestBed.configureTestingModule({
-        declarations: [],
-        imports: [RouterTestingModule],
-        providers: [HttpClient, HttpHandler]
-    }));
+    let service: ApiService;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [],
+            imports: [RouterTestingModule],
+            providers: [HttpClient, HttpHandler]
+        });
+        service = TestBed.inject(ApiService);
+    });
 
     it('should be created', () => {
-        const service: ApiService = TestBed.get(ApiService);
-
         expect(service).toBeTruthy();
     });
 });
