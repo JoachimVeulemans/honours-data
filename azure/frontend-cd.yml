@@ -1,0 +1,17 @@
+# Angular - Frontend - CD
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    repository: 'joachimveulemans/secure-messaging-platform'
+    command: 'buildAndPush'
+    Dockerfile: 'frontend/Dockerfile'
+    buildContext: 'frontend'
+    tags: 'frontend'
