@@ -16,8 +16,6 @@ steps:
 - script: |
     python -m pip install --upgrade pip
     pip install -r requirements.txt
-    pip install -e ./parameterized-0.7.0
-    pip install pytest pytest-cov
   workingDirectory: './backend'
   displayName: 'Install dependencies'
 
