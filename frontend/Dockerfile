@@ -17,7 +17,7 @@ COPY ./ /app/
 ARG configuration=prod
 
 # 7 - Build the Angular project
-RUN npm run build -- --configuration ${configuration} --output-path=./dist/out
+RUN npm run build -- --${configuration} --output-path=./dist/out
 
 # 8 - Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:latest
