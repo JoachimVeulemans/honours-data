@@ -9,8 +9,8 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'DockerHub'
-    repository: 'joachimveulemans/honours-data'
+    containerRegistry: 'DockerHubJoachim'
+    repository: 'honours-data'
     command: 'buildAndPush'
     Dockerfile: 'frontend/Dockerfile'
     buildContext: 'frontend'

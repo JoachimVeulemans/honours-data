@@ -17,7 +17,7 @@ If you want to run the project locally on your own computer, you can do so in tw
 
 Here is assumed that you have [Docker](https://www.docker.com/get-started) installed correctly.
 
-Start of by building the images: `.\00_build_images.cmd` or `./00_build_images.sh`. Alternatively, you can also pull the images that are already build by: `.\00b_pull_images.cmd` or `./00b_pull_images.sh`.
+Start of by building the images: `.\00_build_images.cmd` or `./00_build_images.sh`.
 
 #### Frontend
 

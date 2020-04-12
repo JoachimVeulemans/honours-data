@@ -1,3 +1,3 @@
-docker build -t joachimveulemans/honours-data:frontend ./frontend/
+docker build -t honours-data:frontend ./frontend/
 
-docker build -t joachimveulemans/honours-data:backend ./backend/
+docker build -t honours-data:backend ./backend/
