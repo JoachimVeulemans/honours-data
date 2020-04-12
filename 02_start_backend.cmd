@@ -1,1 +1,1 @@
-docker run -p 5000:80 joachimveulemans/honours-data:backend
+docker run -p 5000:80 honours-data:backend

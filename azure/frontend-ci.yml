@@ -44,8 +44,8 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'DockerHub'
-    repository: 'joachimveulemans/honours-data'
+    containerRegistry: 'DockerHubJoachim'
+    repository: 'honours-data'
     command: 'build'
     Dockerfile: 'frontend/Dockerfile'
     buildContext: 'frontend'
