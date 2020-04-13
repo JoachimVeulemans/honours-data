@@ -1,5 +1,5 @@
 flask===1.1.2
 flask_cors===3.0.8
-parameterized==0.7.1
+parameterized==0.7.3
 pytest==5.4.1
 pytest-cov==2.8.1
