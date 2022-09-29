@@ -21,7 +21,7 @@
     "@angular/router": "~8.2.14",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "bootstrap": "^4.4.1",
-    "d3": "^5.15.1",
+    "d3": "^7.6.1",
     "jquery": "^3.5.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.5",
